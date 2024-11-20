@@ -1,7 +1,9 @@
 package entity
 
 import (
+	"errors"
 	"go-ddd-sample/util"
+	"regexp"
 	"time"
 )
 
@@ -9,9 +11,9 @@ type Member struct {
 	MemberId  int64
 	Nickname  string
 	Email     string
-	Password  string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	password  string
+	createdAt time.Time
+	updatedAt time.Time
 }
 
 const salt = "abcd"
@@ -21,14 +23,27 @@ func (m *Member) VerifyPassword(password string) bool {
 	if err != nil {
 		return false
 	}
-	return m.Password == pass
+	return m.password == pass
 }
 
-func (m *Member) SetPassword(password string) error {
+func (m *Member) EncryptPassword(password string) error {
 	pass, err := util.ScryptWithSalt(password, salt)
 	if err != nil {
 		return err
 	}
-	m.Password = pass
+	m.password = pass
+	return nil
+}
+
+func (m *Member) VerifyInfo() error {
+	if m == nil {
+		return errors.New("member is nil")
+	}
+	if !regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$`).MatchString(m.Email) {
+		return errors.New("invalid email")
+	}
+	if m.Nickname == "" || len(m.Nickname) > 50 {
+		return errors.New("invalid nickname")
+	}
 	return nil
 }
