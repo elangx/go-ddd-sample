@@ -19,7 +19,7 @@ func Run() {
 	e := NewServerHandler()
 	e.Handle("POST", "/login", HandlerFunc(s.Login))
 	e.Handle("POST", "/register", HandlerFunc(s.Register))
-	if err := NewServerHandler().Run(":8080"); err != nil {
+	if err := e.Run(":8080"); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -8,7 +8,7 @@ import (
 var db *gorm.DB
 
 func Init() {
-	dbTmp, err := gorm.Open(mysql.Open("root:123456@tcp(127.0.0.1:3306)"), &gorm.Config{})
+	dbTmp, err := gorm.Open(mysql.Open("root:12345678@tcp(127.0.0.1:3306)/test?parseTime=true"), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
