@@ -1,5 +1,5 @@
 package service
 
-func init() {
+func Init() {
 	memberDomainService = NewMemberDomainServiceImpl()
 }

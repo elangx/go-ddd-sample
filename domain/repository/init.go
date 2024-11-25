@@ -1,5 +1,5 @@
 package repository
 
-func init() {
+func Init() {
 	SetMemberRepository(NewMemberRepositoryMySQL())
 }
