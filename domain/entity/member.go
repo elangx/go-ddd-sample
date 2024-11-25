@@ -8,12 +8,12 @@ import (
 )
 
 type Member struct {
-	MemberId  int64
-	Nickname  string
-	Email     string
-	password  string
-	createdAt time.Time
-	updatedAt time.Time
+	MemberId  int64     `json:"member_id"`
+	Nickname  string    `json:"nickname"`
+	Email     string    `json:"email"`
+	Password  string    `json:"password"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 const salt = "abcd"
@@ -23,7 +23,7 @@ func (m *Member) VerifyPassword(password string) bool {
 	if err != nil {
 		return false
 	}
-	return m.password == pass
+	return m.Password == pass
 }
 
 func (m *Member) EncryptPassword(password string) error {
@@ -31,7 +31,7 @@ func (m *Member) EncryptPassword(password string) error {
 	if err != nil {
 		return err
 	}
-	m.password = pass
+	m.Password = pass
 	return nil
 }
 

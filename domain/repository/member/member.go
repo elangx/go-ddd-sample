@@ -4,7 +4,7 @@ import "go-ddd-sample/domain/entity"
 
 type MemberRepository interface {
 	GetMemberByEmail(email string) (*entity.Member, error)
-	UpdateMember(member *entity.Member) error
+	CreateMember(member *entity.Member) error
 }
 
 var memberIns MemberRepository
