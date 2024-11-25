@@ -1,4 +1,4 @@
-package member
+package repository
 
 import "go-ddd-sample/domain/entity"
 

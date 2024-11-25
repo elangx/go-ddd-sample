@@ -1,7 +1,6 @@
 package entity
 
 import (
-	"errors"
 	"go-ddd-sample/util"
 	"regexp"
 	"time"
@@ -35,15 +34,10 @@ func (m *Member) EncryptPassword(password string) error {
 	return nil
 }
 
-func (m *Member) VerifyInfo() error {
-	if m == nil {
-		return errors.New("member is nil")
-	}
-	if !regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$`).MatchString(m.Email) {
-		return errors.New("invalid email")
-	}
-	if m.Nickname == "" || len(m.Nickname) > 50 {
-		return errors.New("invalid nickname")
-	}
-	return nil
+func (m *Member) CheckEmail() bool {
+	return m != nil && regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$`).MatchString(m.Email)
+}
+
+func (m *Member) CheckNickname() bool {
+	return m != nil && m.Nickname != "" && len(m.Nickname) <= 50
 }
