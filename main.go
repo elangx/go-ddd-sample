@@ -1,22 +1,17 @@
 package main
 
 import (
-	"github.com/urfave/cli/v2"
-	"go-ddd-sample/dao/mysql"
-	"go-ddd-sample/domain/repository"
-	"go-ddd-sample/domain/service"
 	"go-ddd-sample/httpserver"
 	"log"
 	"os"
+
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
 	app := &cli.App{
 		Name: "go-ddd-sample",
 		Before: func(context *cli.Context) error {
-			mysql.Init()
-			repository.Init()
-			service.Init()
 			return nil
 		},
 		Action: func(context *cli.Context) error {

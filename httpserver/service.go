@@ -1,11 +1,10 @@
 package httpserver
 
 import (
-	"github.com/gin-gonic/gin"
-	"go-ddd-sample/application/service"
-	"go-ddd-sample/domain/repository"
-	service2 "go-ddd-sample/domain/service"
+	ioc "go-ddd-sample/ioc"
 	"log"
+
+	"github.com/gin-gonic/gin"
 )
 
 func NewServerHandler() *gin.Engine {
@@ -15,7 +14,7 @@ func NewServerHandler() *gin.Engine {
 }
 
 func Run() {
-	s := service.NewMemberService(repository.NewMemberRepositoryMySQL(), service2.NewMemberDomainServiceImpl())
+	s := ioc.GetMemberService()
 	e := NewServerHandler()
 	e.Handle("POST", "/login", HandlerFunc(s.Login))
 	e.Handle("POST", "/register", HandlerFunc(s.Register))
