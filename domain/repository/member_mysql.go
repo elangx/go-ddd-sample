@@ -14,9 +14,9 @@ type MemberRepositoryMySQL struct {
 	db *gorm.DB
 }
 
-func NewMemberRepositoryMySQL() *MemberRepositoryMySQL {
+func NewMemberRepositoryMySQL(db *gorm.DB) *MemberRepositoryMySQL {
 	return &MemberRepositoryMySQL{
-		db: mysql.GetDB(),
+		db: db,
 	}
 }
 

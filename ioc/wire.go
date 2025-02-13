@@ -9,12 +9,15 @@ import (
 
 	appService "go-ddd-sample/application/service"
 
+	"go-ddd-sample/dao/mysql"
+
 	"github.com/google/wire"
 )
 
 var memberRepositorySet = wire.NewSet(
 	repository.NewMemberRepositoryMySQL,
 	wire.Bind(new(repository.MemberRepository), new(*repository.MemberRepositoryMySQL)),
+	mysql.GetDB,
 )
 
 var memberServiceSet = wire.NewSet(

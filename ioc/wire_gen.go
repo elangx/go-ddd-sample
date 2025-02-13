@@ -9,6 +9,7 @@ package ioc
 import (
 	"github.com/google/wire"
 	"go-ddd-sample/application/service"
+	"go-ddd-sample/dao/mysql"
 	"go-ddd-sample/domain/repository"
 	service2 "go-ddd-sample/domain/service"
 )
@@ -16,7 +17,8 @@ import (
 // Injectors from wire.go:
 
 func GetMemberService() *service.MemberService {
-	memberRepositoryMySQL := repository.NewMemberRepositoryMySQL()
+	db := mysql.GetDB()
+	memberRepositoryMySQL := repository.NewMemberRepositoryMySQL(db)
 	memberDomainServiceImpl := service2.NewMemberDomainServiceImpl()
 	memberService := service.NewMemberService(memberRepositoryMySQL, memberDomainServiceImpl)
 	return memberService
@@ -24,6 +26,6 @@ func GetMemberService() *service.MemberService {
 
 // wire.go:
 
-var memberRepositorySet = wire.NewSet(repository.NewMemberRepositoryMySQL, wire.Bind(new(repository.MemberRepository), new(*repository.MemberRepositoryMySQL)))
+var memberRepositorySet = wire.NewSet(repository.NewMemberRepositoryMySQL, wire.Bind(new(repository.MemberRepository), new(*repository.MemberRepositoryMySQL)), mysql.GetDB)
 
 var memberServiceSet = wire.NewSet(service2.NewMemberDomainServiceImpl, wire.Bind(new(service2.MemberDomainService), new(*service2.MemberDomainServiceImpl)))
