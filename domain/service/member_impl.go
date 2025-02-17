@@ -2,14 +2,14 @@ package service
 
 import "go-ddd-sample/domain/entity"
 
-var _ MemberDomainService = (*memberDomainServiceImpl)(nil)
+var _ MemberDomainService = (*MemberDomainServiceImpl)(nil)
 
-type memberDomainServiceImpl struct{}
+type MemberDomainServiceImpl struct{}
 
-func NewMemberDomainServiceImpl() MemberDomainService {
-	return &memberDomainServiceImpl{}
+func NewMemberDomainServiceImpl() *MemberDomainServiceImpl {
+	return &MemberDomainServiceImpl{}
 }
 
-func (m *memberDomainServiceImpl) CheckMember(member *entity.Member) bool {
+func (m *MemberDomainServiceImpl) CheckMember(member *entity.Member) bool {
 	return member.CheckNickname() && member.CheckEmail()
 }

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"go-ddd-sample/dao/mysql"
 	"go-ddd-sample/domain/entity"
+
 	"gorm.io/gorm"
 )
 
@@ -13,9 +14,9 @@ type MemberRepositoryMySQL struct {
 	db *gorm.DB
 }
 
-func NewMemberRepositoryMySQL() *MemberRepositoryMySQL {
+func NewMemberRepositoryMySQL(db *gorm.DB) *MemberRepositoryMySQL {
 	return &MemberRepositoryMySQL{
-		db: mysql.GetDB(),
+		db: db,
 	}
 }
 
